@@ -24,8 +24,9 @@ class CoursesController < ApplicationController
 		@chapter = Chapter.find_by(slug: params[:slug])
 
 		if user_signed_in?
-			@log = Log.find_by(:chapter_id => @chapter, :user_id => current_user.id)
 			@follow = Follow.find_by(:chapter_id => @chapter, :user_id => current_user.id)
 		end
+
+		@related = Chapter.where(:lesson => Lesson.find_by(topic_id: @topic)).where.not(:id => @chapter.id).order("id ASC")
 	end
 end

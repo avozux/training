@@ -208,9 +208,9 @@ span {
 				color: $black-3nd;
 				font-size: 0.875rem;
 				display: block;
-				margin-left: 0.75rem;
 				line-height: normal;
 				position: relative;
+				text-decoration: none;
 				&.active {
 					color: $blue-nd;
 					&:before {
@@ -610,7 +610,7 @@ span {
 			background-color: $light;
 			.course-sidebar-nd {
 				.course-linked {
-					margin-top: 1.5rem;
+					margin-top: 2.5rem;
 					padding: 1rem;
 					box-shadow: 1px 1px 6px rgba(0,0,0,.1);
 					span {
@@ -742,7 +742,21 @@ a.following:before {
 		margin-right: 0.25rem;
 		display: inline-block;
 	}
-	
+}
+
+.viewed_ic {
+	font-size: 1rem;
+  color: #8bc34a;
+  display: -webkit-flex;
+  align-items: center;
+  float: left;
+	&:before {
+		content: url('viewed.svg');
+		width: 18px;
+		height: 18px;
+		margin-right: 0.25rem;
+		display: inline-block;
+	}
 }
 
 .up-next {

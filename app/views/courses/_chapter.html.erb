@@ -1,8 +1,10 @@
 <div class="sidebar-category">
-	<h5><%= @lesson.title %></h5>
-	<% Chapter.where(lesson: @lesson).each do |chapter| %>
-		<div class="course-sidebar-list">
-			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= params[:lesson_slug] %>/<%= chapter.slug %>"><p class="mb-3"><%= chapter.title %></p></a>
-		</div>
+	<h6 class="mb-3"><%= @lesson.title %></h6>
+	<div class="course-sidebar-list">
+	<% Chapter.where(lesson: @lesson).order("id ASC").each do |chapter| %>
+		<p class="mb-1">
+			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= params[:lesson_slug] %>/<%= chapter.slug %>" class="course-sidebar-item"><% if Log.find_by(:chapter_id => chapter.id).present? %><span class="viewed_ic"></span><% end %><%= chapter.title %></a>
+		</p>
 	<% end %>
+	</div>
 </div>

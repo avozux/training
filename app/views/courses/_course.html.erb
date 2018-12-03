@@ -1,7 +1,7 @@
 <div class="sidebar-category">
 	<% Course.all.each do |course| %>
 		<h5><%= course.title %></h5>
-		<% Topic.where(course_id: course.id).each do |topic| %>
+		<% Topic.where(course_id: course.id).order("id ASC").each do |topic| %>
 			<div class="course-sidebar-list">
 				<p class="mb-3"><%= topic.title %></p>
 			</div>
