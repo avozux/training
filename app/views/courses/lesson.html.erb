@@ -1,0 +1,32 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="<%= courses_url %>" class="item">Course</a>
+		<a href="<%= courses_url %>/<%= params[:course_slug] %>" class="item"><%= @course.title %></a>
+		<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>" class="item"><%= @topic.title %></a>
+		<a nohref class="item"><%= @lesson.title %></a>
+	</div>
+</div>
+<div class="main__content-left">
+	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
+	<div class="course-sidebar mt-4">
+		<%= render 'chapter' %>
+	</div>
+</div>
+<div class="main__content-center courses">
+	<div class="course-intro">
+		<h1 class="title mb-3"><%= @lesson.title %></h1>
+		<p class="description mb-4"><%= @lesson.description %></p>
+	</div>
+	<div class="content-list mt-3 clearfix">
+		<% Chapter.where(lesson: @lesson).each do |chapter| %>
+		<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= params[:lesson_slug] %>/<%= chapter.slug %>">
+			<div class="content-list-item topic rounded">
+				<div class="content-list-item-body p-3">
+					<h5><%= chapter.title %></h5>
+					<p class="mt-3 truncate"><%= chapter.description %></p>
+				</div>
+			</div>
+		</a>
+		<% end %>
+	</div>
+</div>

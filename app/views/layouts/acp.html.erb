@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vnetwork Training Center :.: Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,500,700" rel="stylesheet">
+    <%= stylesheet_link_tag    'acp', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'acp', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <div class="main__content acp">
+      <%= yield %>
+    </div>
+  </body>
+</html>

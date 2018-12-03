@@ -1,0 +1,30 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="<%= courses_url %>" class="item">Course</a>
+		<a nohref class="item"><%= @course.title %></a>
+	</div>
+</div>
+<div class="main__content-left">
+	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
+	<div class="course-sidebar mt-4">
+		<%= render 'topic' %>
+	</div>
+</div>
+<div class="main__content-center courses">
+	<div class="course-intro">
+		<h1 class="title mb-3"><%= @course.title %></h1>
+		<p class="description mb-4"><%= @course.description %></p>
+	</div>
+	<div class="content-list mt-3 clearfix">
+		<% Topic.where(course_id: @course.id).each do |topic| %>
+			<a href="<%= courses_url %>/<%= @course.course_slug %>/<%= topic.topic_slug %>">
+				<div class="content-list-item topic rounded">
+					<div class="content-list-item-body p-3">
+						<h5><%= topic.title %></h5>
+						<p class="mt-3 truncate"><%= topic.description %></p>
+					</div>
+				</div>
+			</a>
+		<% end %>
+	</div>
+</div>

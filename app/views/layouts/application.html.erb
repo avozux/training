@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vnetwork Training Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <% if user_signed_in? %>
+    <meta name="octolytics-actor-login" content="<%= current_user.username %>"/>
+    <% end %>
+
+    <% if controller_name == "examination" && action_name == "detail" %>
+    <meta name="octolytics-actor-exam-timer" content="<%= @exam.time %>"/>
+    <% end %>
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,500,700" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header class="main__header light clearfix">
+      <div class="main__header-left">
+        <a href="<%= root_path %>"><div class="brand"></div></a>
+      </div>
+      <div class="main__header-center">
+        <a href="<%= courses_url %>">Courses</a>
+        <a href="<%= examination_url %>">Examination</a>
+        <form class="form" action="<%= search_path %>" method="get">
+          <span class="search_ic"></span>
+          <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: 'Search'%>
+        </form>
+      </div>
+      <div class="main__header-right">
+        <div class="account">
+          <% if user_signed_in? %>
+            <p class="mb-0 link account-action"><span class="account-name"><%= current_user.name %></span><p>
+            <div class="account-panel">
+              <a href="/<%= current_user.username %>">Profile</a>
+              <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+            </div>
+          <% else %>
+            <p class="direct-login mb-0">Login</p>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <div class="main__content clearfix">
+      <%= yield %>
+    </div>
+    <% if !user_signed_in? && action_name != "new" %>
+      <div class="login-modal hidden">
+        <div class="login-modal-wrapper p-4 rounded">
+          <h4>Login</h4>
+          <%= form_for(User.new, url: session_path(:user), :html => {:id => "login-box", :class => "contact-form", :'data-type' => 'json'}, :remote => true ) do |f| %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <div class="form-group mt-4">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, :class => 'form-control', autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="form-group mt-3">
+              <%= f.label :password %><br />
+              <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
+            </div>
+            <div class="actions mt-3">
+              <%= f.submit "Log in", :class => 'btn btn-primary mr-3' %>
+              <a href="" class="btn btn-light">Cancel</a>
+            </div>
+          <% end %>
+          <script type="text/javascript">
+            $(document).on('ajax:success', '#login-box', function(e) {
+              window.location.reload();
+            });
+
+            $(document).on('ajax:error', '#login-box', function(e) {
+              window.location.href = '/users/sign_in';
+            });
+          </script>
+        </div>
+      </div>
+    <% end %>
+  </body>
+</html>

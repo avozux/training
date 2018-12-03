@@ -1,0 +1,29 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="<%= courses_url %>" class="item">Course</a>
+	</div>
+</div>
+<div class="main__content-left">
+	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
+	<div class="course-sidebar mt-4">
+		<%= render 'course' %>
+	</div>
+</div>
+<div class="main__content-center courses">
+	<div class="course-intro">
+		<h1 class="title mb-3">Các Chuyên Đề Đào Tạo</h1>
+		<p class="description mb-4">Tất cả các chuyên đề được quản lí đào tạo tổ chức theo các chủ đề bên dưới, mỗi chủ đề sẽ có các bài học tương ứng được xếp theo mức độ chuyên sâu dần.</p>
+	</div>
+	<div class="content-list mt-3 clearfix">
+		<% Course.all.each do |course| %>
+			<a href="<%= courses_url %>/<%= course.course_slug %>">
+				<div class="content-list-item topic rounded">
+					<div class="content-list-item-body p-3">
+						<h5><%= course.title %></h5>
+						<p class="mt-3 truncate"><%= course.description %></p>
+					</div>
+				</div>
+			</a>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,8 @@
+<div class="sidebar-category">
+	<h5><%= @lesson.title %></h5>
+	<% Chapter.where(lesson: @lesson).each do |chapter| %>
+		<div class="course-sidebar-list">
+			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= params[:lesson_slug] %>/<%= chapter.slug %>"><p class="mb-3"><%= chapter.title %></p></a>
+		</div>
+	<% end %>
+</div>
