@@ -13,6 +13,12 @@ Rails.application.routes.draw do
   get '/courses/:course_slug/:topic_slug/:lesson_slug', to: "courses#lesson"
   get '/courses/:course_slug/:topic_slug/:lesson_slug/:slug', to: "courses#chapter"
 
+  resources :chapters, only: [:detail] do
+    resources :comments, only: [:create] do
+      resources :replies, only: [:create]
+    end
+  end
+
   # Log Routing
   post '/logs/:id', to: "logs#create"
 

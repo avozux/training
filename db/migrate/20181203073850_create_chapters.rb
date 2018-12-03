@@ -14,7 +14,7 @@ class CreateChapters < ActiveRecord::Migration[5.2]
       t.attachment :thumbnail
       t.attachment :video
 
-      t.integer :questions_count
+      t.integer :comments_count
       t.integer :views_count
     	
       t.timestamps

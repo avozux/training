@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_091226) do
+ActiveRecord::Schema.define(version: 2018_12_03_093112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,10 +45,21 @@ ActiveRecord::Schema.define(version: 2018_12_03_091226) do
     t.string "video_content_type"
     t.bigint "video_file_size"
     t.datetime "video_updated_at"
-    t.integer "questions_count"
+    t.integer "comments_count"
     t.integer "views_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "content"
+    t.integer "replies_count"
+    t.bigint "chapter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_comments_on_chapter_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -75,6 +86,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_091226) do
     t.string "title"
     t.string "lesson_slug"
     t.string "description"
+    t.string "author"
     t.boolean "featured", default: false
     t.boolean "approval", default: true
     t.bigint "topic_id"
@@ -93,6 +105,16 @@ ActiveRecord::Schema.define(version: 2018_12_03_091226) do
     t.datetime "updated_at", null: false
     t.index ["chapter_id", "exam_id", "user_id"], name: "index_logs_on_chapter_id_and_exam_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.string "admin"
+    t.string "email"
+    t.string "content"
+    t.bigint "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -135,7 +157,9 @@ ActiveRecord::Schema.define(version: 2018_12_03_091226) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "chapters"
   add_foreign_key "follows", "users"
   add_foreign_key "lessons", "topics"
   add_foreign_key "logs", "users"
+  add_foreign_key "replies", "comments"
 end

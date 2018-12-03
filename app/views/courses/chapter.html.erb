@@ -26,12 +26,90 @@
 		</h1>
 		<p class="description mb-4"><%= @chapter.description %></p>
 	</div>
-	<div class="content-list mt-3 clearfix">
-			
+	<% if @chapter.video.exists? %>
+		<video controls width="100%" height="auto" src="<%= @chapter.video.expiring_url.gsub('s3.vnetwork.vn','cdn.s3.vnetwork.vn') %>"></video>
+	<% end %>
+	<div class="mt-4 mb-4 course-body">
+		<%= @chapter.body.html_safe %>
+	</div>
+	<div class="course-question">
+		<h3 class="mb-1">Hỏi/Đáp</h3>
+		<p class="description mb-3">Đặt câu hỏi cho phần kiến thức mà bạn chưa nắm, quản lí đào tạo sẽ trả lời cho bạn.</p>
+		<% if @chapter.comments.present? %>
+		<div class="course-question-list">
+			<% @chapter.comments.each do |comment| %>
+			<div class="q-<%= Digest::MD5.hexdigest(comment.name) %> mb-3">
+			  <h5 class="mb-1">
+			  	Q: <%= comment.content %>
+			  </h5>
+			  <% if admin_signed_in? %>
+				  <p class="admin-reply blue-nd mb-3"><u>Reply</u></p>
+				<% end %>
+			  <% comment.replies.each do |answer| %>
+			  	<p class="course-question-answers mt-2">A: <%= answer.content %></p>
+			  <% end %>
+			  <% if admin_signed_in? %>
+				  <form action="/chapters/<%= @chapter.id %>/comments/<%= comment.id %>/replies" class="mb-4 a-<%= Digest::MD5.hexdigest(comment.name) %>" accept-charset="UTF-8" method="post">
+				  	<input name="utf8" type="hidden" value="✓">
+				  	<input type="hidden" name="authenticity_token" value="another_token" />
+					  <div class="form-group">
+					  	<label class="form-label font-weight-bold" for="reply_content">Enter your answer</label>
+				      <textarea placeholder="About 10 - 200 characters" class="form-control" required="required" name="reply[content]" id="reply_content" cols="50" rows="3"></textarea>
+				    </div>
+				    <div class="form-actions">
+				      <button name="button" type="submit" class="btn btn-primary mr-3">
+				        Submit
+							</button>
+						</div>
+					</form>
+				<% end %>
+				<style type="text/css">
+					.q-<%= Digest::MD5.hexdigest(comment.name) %> .a-<%= Digest::MD5.hexdigest(comment.name) %> {
+						display: none;
+						visibility: hidden;
+					}
+
+					.q-<%= Digest::MD5.hexdigest(comment.name) %>.active .a-<%= Digest::MD5.hexdigest(comment.name) %>{
+						display: block;
+						visibility: visible;
+					}
+				</style>
+				<script type="text/javascript">
+					$(".admin-reply").click(function() {
+						$(".q-<%= Digest::MD5.hexdigest(comment.name) %>").removeClass("active");
+						$(this).parent().addClass("active");
+					})
+				</script>
+			</div>
+			<% end %>
+		</div>
+		<% end %>
+		<div class="course-question-add">
+			<h5>You have a question?</h5>
+			<% if user_signed_in? %>
+				<%= form_with(model: [ @chapter, @chapter.comments.build ], local: true) do |f| %>
+				  <%= f.hidden_field :name, :value => current_user.name %>
+				  <%= f.hidden_field :email, :value => current_user.email %>
+
+				  <div class="form-group">
+				  	<%= f.label :content, 'Enter your question', class: 'form-label font-weight-bold mt-3' %>
+			      <%= f.text_area :content, size: '50x3', placeholder: 'About 10 - 200 characters', class: 'form-control', :required => true %>
+			    </div>
+
+			    <div class="form-actions">
+			      <%= button_tag(type: "submit", class: "btn btn-primary mr-3") do %>
+			        Submit
+			      <% end %>
+			    </div>
+				<% end %>
+			<% else %>
+				<p>You must login before send a question! <span class="direct-login blue-nd"><u>Login Now</u></span></p>
+			<% end %>
+		</div>
 	</div>
 </div>
 <div class="main__content-right detail">
-
+_block.right
 </div>
 <% if @chapter.next %>
 <div class="up-next">

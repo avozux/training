@@ -1,5 +1,5 @@
 class Chapter < ApplicationRecord
-	has_many :questions, dependent: :destroy
+	has_many :comments, dependent: :destroy
 	has_many :views, as: :viewable
 
 	# Upload attachment
