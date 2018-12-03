@@ -25,10 +25,6 @@
 						<p class="mt-3 truncate"><%= lesson.description %></p>
 						<% if user_signed_in? %>
 						<p class="mb-0">Đã học: <span><%= Log.where(lesson_id: lesson.id).size %>/<%= lesson.chapter.count %></span></p>
-						<script type="text/javascript">
-							var avg = <%= Log.where(lesson_id: lesson.id).size %> / <%= lesson.chapter.count %> * 100
-							$("#avg_<%= Digest::MD5.hexdigest(lesson.title) %>").html(avg.toFixed(0)+"%")
-						</script>
 						<% end %>
 					</div>
 				</div>
