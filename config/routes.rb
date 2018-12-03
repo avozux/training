@@ -13,6 +13,13 @@ Rails.application.routes.draw do
   get '/courses/:course_slug/:topic_slug/:lesson_slug', to: "courses#lesson"
   get '/courses/:course_slug/:topic_slug/:lesson_slug/:slug', to: "courses#chapter"
 
+  # Log Routing
+  post '/logs/:id', to: "logs#create"
+
+  # Follow Routing
+  post '/follows/:id', to: "follows#create"
+  delete '/follows/:id', to: "follows#destroy"
+
   # Examination Routing
   get '/examination', to: "examination#index"
 

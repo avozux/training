@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_073850) do
+ActiveRecord::Schema.define(version: 2018_12_03_091226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 2018_12_03_073850) do
     t.boolean "approval", default: true
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.string "chapter_title"
+    t.integer "chapter_id"
+    t.string "chapter_url"
+    t.boolean "followed", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id", "user_id"], name: "index_follows_on_chapter_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.string "title"
     t.string "lesson_slug"
@@ -67,6 +79,20 @@ ActiveRecord::Schema.define(version: 2018_12_03_073850) do
     t.boolean "approval", default: true
     t.bigint "topic_id"
     t.index ["topic_id"], name: "index_lessons_on_topic_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "log_type"
+    t.integer "chapter_id"
+    t.string "chapter_url"
+    t.integer "exam_id"
+    t.string "exam_url"
+    t.boolean "received", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id", "exam_id", "user_id"], name: "index_logs_on_chapter_id_and_exam_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -109,5 +135,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_073850) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "follows", "users"
   add_foreign_key "lessons", "topics"
+  add_foreign_key "logs", "users"
 end

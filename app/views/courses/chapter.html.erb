@@ -12,14 +12,26 @@
 		<%= render 'chapter' %>
 	</div>
 </div>
-<div class="main__content-center courses">
+<div class="main__content-center detail">
 	<div class="course-intro">
-		<h1 class="title mb-3"><%= @chapter.title %></h1>
+		<h1 class="title mb-3">
+			<%= @chapter.title %>
+			<% if user_signed_in? %>
+				<% if @follow.nil? %>
+					<a class="follow unfollow" rel="nofollow" data-method="post" href="/follows/<%= @chapter.id %>?user_id=<%= current_user.id %>&chapter_title=<%= @chapter.title %>&chapter_url=<%= request.fullpath %>&chapter_id=<%= @chapter.id %>&followed=true&authenticity_token=<%= form_authenticity_token %>"></a>
+				<% else %>
+					<a class="follow following" rel="nofollow" data-method="delete" href="/follows/<%= @follow.id %>/"></a>
+				<% end %>
+			<% end %>
+		</h1>
 		<p class="description mb-4"><%= @chapter.description %></p>
 	</div>
 	<div class="content-list mt-3 clearfix">
-		
+			
 	</div>
+</div>
+<div class="main__content-right detail">
+
 </div>
 <% if @chapter.next %>
 <div class="up-next">
@@ -30,4 +42,32 @@
 		</div>
 	</div>
 </div>
+<% end %>
+<% if user_signed_in? && cookies[:_viewed].nil? %>
+	<script type="text/javascript">
+		function dataColect() {
+	    info = {
+	    	'log_type' : "Course",
+	      'user_id' : <%= current_user.id %>,
+	      'chapter_url' : "<%= request.fullpath %>",
+	      'chapter_id' : <%= @chapter.id %>,
+	      'received' : true,
+	      'authenticity_token' : $("#csrf").val()
+	    };
+
+	    $.ajax({
+	      type      : 'POST',
+	      url       : '/logs/'+<%= current_user.id %>,
+	      data      : info,
+	      dataType  : 'json',
+	      encode    : true
+	    });
+	  }
+
+		$(window).bind('scroll', function() {
+	    if($(window).scrollTop() >= $('.course-intro').offset().top + $('.course-intro').outerHeight() - window.innerHeight) {
+	    	dataColect();
+	    }
+		});
+	</script>
 <% end %>
