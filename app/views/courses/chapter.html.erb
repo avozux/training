@@ -131,7 +131,7 @@
 	</div>
 </div>
 <% end %>
-<% if user_signed_in? && cookies[:_received].nil? %>
+<% if user_signed_in? && !Log.find_by(chapter_id: @chapter.id).present? %>
 	<script type="text/javascript">
 		function dataColect() {
 	    info = {

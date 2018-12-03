@@ -5,8 +5,8 @@ class LogsController < ApplicationController
     # This cookie control send logs from course detail to avoid view spam
     if controller_name == "examination"
       cookies[:_quizzes] = { :value => "passed", :expires => 1.minutes.from_now }
-    elsif controller_name == "course"
-      cookies[:_viewed] = { :value => true, :expires => 1.minutes.from_now }
+    elsif controller_name == "courses"
+      cookies[:_received] = { :value => true, :expires => 1.minutes.from_now }
     end
 
     # This validate only one course per user can be send to server
