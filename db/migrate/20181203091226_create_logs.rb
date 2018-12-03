@@ -2,6 +2,8 @@ class CreateLogs < ActiveRecord::Migration[5.2]
   def change
     create_table :logs do |t|
       t.string :log_type
+
+      t.string :lesson_id
       
     	t.integer :chapter_id
       t.string :chapter_url

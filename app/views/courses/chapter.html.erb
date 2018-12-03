@@ -139,6 +139,7 @@
 	      'user_id' : <%= current_user.id %>,
 	      'chapter_url' : "<%= request.fullpath %>",
 	      'chapter_id' : <%= @chapter.id %>,
+	      'lesson_id' : <%= @lesson.id %>,
 	      'received' : true,
 	      'authenticity_token' : $("#csrf").val()
 	    };

@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
     t.datetime "video_updated_at"
     t.integer "comments_count"
     t.integer "views_count"
+    t.bigint "lesson_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_chapters_on_lesson_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -87,6 +89,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
     t.string "lesson_slug"
     t.string "description"
     t.string "author"
+    t.integer "chapters_count"
     t.boolean "featured", default: false
     t.boolean "approval", default: true
     t.bigint "topic_id"
@@ -95,6 +98,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
 
   create_table "logs", force: :cascade do |t|
     t.string "log_type"
+    t.string "lesson_id"
     t.integer "chapter_id"
     t.string "chapter_url"
     t.integer "exam_id"
@@ -157,6 +161,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chapters", "lessons"
   add_foreign_key "comments", "chapters"
   add_foreign_key "follows", "users"
   add_foreign_key "lessons", "topics"

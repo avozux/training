@@ -7,6 +7,8 @@ class CreateLessons < ActiveRecord::Migration[5.2]
 
       t.string :author
 
+      t.integer :chapters_count
+
     	t.boolean :featured, default: false
     	t.boolean :approval, default: true
     	

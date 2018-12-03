@@ -2,6 +2,8 @@ class Chapter < ApplicationRecord
 	has_many :comments, dependent: :destroy
 	has_many :views, as: :viewable
 
+	belongs_to :lesson, counter_cache: true
+
 	# Upload attachment
 	has_attached_file :thumbnail, {
 		:default_url => ":attachment/null",

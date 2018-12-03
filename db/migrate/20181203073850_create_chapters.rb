@@ -16,6 +16,8 @@ class CreateChapters < ActiveRecord::Migration[5.2]
 
       t.integer :comments_count
       t.integer :views_count
+
+      t.references :lesson, foreign_key: true
     	
       t.timestamps
     end

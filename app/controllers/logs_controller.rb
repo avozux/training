@@ -17,6 +17,6 @@ class LogsController < ApplicationController
 
   private
     def log_params
-      params.permit(:log_type, :user_id, :exam_url, :exam_id, :chapter_url, :chapter_id, :received)
+      params.permit(:log_type, :user_id, :exam_url, :exam_id, :chapter_url, :chapter_id, :lesson_id, :received)
     end
 end

@@ -140,7 +140,7 @@ chapters = Chapter.create([
 		title: "1. Tổng quan về CDN.",
 		description: "",
 		slug: "tong-quan-ve-cdn",
-		lesson: "1",
+		lesson_id: "1",
 		body: "",
 		views_count: "1"
 	},
@@ -148,7 +148,7 @@ chapters = Chapter.create([
 		title: "2. Các tính năng của CDN.",
 		description: "",
 		slug: "cac-tinh-nang-cua-cdn",
-		lesson: "1",
+		lesson_id: "1",
 		body: "",
 		views_count: "1"
 	},
@@ -156,7 +156,7 @@ chapters = Chapter.create([
 		title: "3. Tại sao phải sử dụng CDN.",
 		description: "",
 		slug: "tai-sao-phai-su-dung-cdn",
-		lesson: "1",
+		lesson_id: "1",
 		body: "",
 		views_count: "1"
 	},
@@ -164,7 +164,7 @@ chapters = Chapter.create([
 		title: "1. Cơ chế chung.",
 		description: "",
 		slug: "co-che-chung",
-		lesson: "2",
+		lesson_id: "2",
 		body: "",
 		views_count: "1"
 	},
@@ -172,7 +172,7 @@ chapters = Chapter.create([
 		title: "2. Các cơ chế hoạt động của CDN.",
 		description: "",
 		slug: "cac-co-che-hoat-dong-cua-cdn",
-		lesson: "2",
+		lesson_id: "2",
 		body: "",
 		views_count: "1"
 	},
@@ -180,7 +180,7 @@ chapters = Chapter.create([
 		title: "1. Cơ sở hạ tầng.",
 		description: "",
 		slug: "co-so-ha-tang",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -188,7 +188,7 @@ chapters = Chapter.create([
 		title: "2. Các tính năng của hệ thống.",
 		description: "",
 		slug: "cac-tinh-nang-cua-he-thong",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -196,7 +196,7 @@ chapters = Chapter.create([
 		title: "3. Đặc điểm nổi bật.",
 		description: "",
 		slug: "dac-diem-noi-bat",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -204,7 +204,7 @@ chapters = Chapter.create([
 		title: "4. Giá.",
 		description: "",
 		slug: "gia",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -212,7 +212,7 @@ chapters = Chapter.create([
 		title: "5. Cách theo dõi.",
 		description: "",
 		slug: "cach-theo-doi",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -220,7 +220,7 @@ chapters = Chapter.create([
 		title: "6. Các dịch vụ có thể tích hợp.",
 		description: "",
 		slug: "cac-dich-vu-co-the-tich-hop",
-		lesson: "3",
+		lesson_id: "3",
 		body: "",
 		views_count: "1"
 	},
@@ -228,7 +228,7 @@ chapters = Chapter.create([
 		title: "Cache là gì?",
 		description: "",
 		slug: "cache-la-gi",
-		lesson: "4",
+		lesson_id: "4",
 		body: "",
 		views_count: "1"
 	},
@@ -236,7 +236,7 @@ chapters = Chapter.create([
 		title: "Dos, DdoS là gì?",
 		description: "",
 		slug: "dos-ddos-la-gi",
-		lesson: "4",
+		lesson_id: "4",
 		body: "",
 		views_count: "1"
 	},
@@ -244,7 +244,7 @@ chapters = Chapter.create([
 		title: "HTTP là gì",
 		description: "",
 		slug: "http-la-gi",
-		lesson: "4",
+		lesson_id: "4",
 		body: "",
 		views_count: "1"
 	},
@@ -252,7 +252,7 @@ chapters = Chapter.create([
 		title: "1. Tên miền Quốc Tế",
 		description: "",
 		slug: "ten-mien-quoc-te",
-		lesson: "5",
+		lesson_id: "5",
 		body: "",
 		views_count: "1"
 	},
@@ -260,7 +260,7 @@ chapters = Chapter.create([
 		title: "2. Tên miền Việt Nam",
 		description: "",
 		slug: "ten-mien-viet-nam",
-		lesson: "5",
+		lesson_id: "5",
 		body: "",
 		views_count: "1"
 	},
@@ -268,7 +268,7 @@ chapters = Chapter.create([
 		title: "Quy ước tên miền quốc tế",
 		description: "",
 		slug: "quy-uoc-ten-mien-quoc-te",
-		lesson: "6",
+		lesson_id: "6",
 		body: "",
 		views_count: "1"
 	}
