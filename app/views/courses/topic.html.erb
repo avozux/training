@@ -17,7 +17,7 @@
 		<p class="description mb-4"><%= @topic.description %></p>
 	</div>
 	<div class="content-list mt-3 clearfix">
-		<% @topic.lesson.each do |lesson| %>
+		<% @topic.lesson.order("id ASC").each do |lesson| %>
 			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= @topic.topic_slug %>/<%= lesson.lesson_slug %>">
 				<div class="content-list-item course rounded">
 					<div class="content-list-item-body p-3">
