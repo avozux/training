@@ -1,50 +1,44 @@
 class Acp::LessonsController < AcpController
-	def index
-    @lessons = Lesson.all
+  before_action :find_lesson, only: [:show, :edit, :update, :destroy]
+  
+  def index
+    @topics = Topic.all
   end
- 
+
   def show
-    @topic = Topic.find(params[:topic_id])
-    @lesson = Lesson.find(params[:id])
   end
- 
+
   def new
+    @topic = Topic.find(params[:topic_id])
     @lesson = Lesson.new
   end
- 
+
   def edit
-    @lesson = Lesson.find(params[:id])
   end
- 
+
   def create
-    @lesson = Lesson.new(lesson_params)
- 
-    if @lesson.save
-      redirect_to acp_lessons_path
-    else
-      render 'new'
-    end
+    @topic = Topic.find(params[:topic_id])
+    @lesson = @topic.lesson.create(lesson_params)
+    redirect_to acp_topic_path(@topic)
   end
- 
+
   def update
-    @lesson = Lesson.find(params[:id])
- 
-    if @lesson.update(lesson_params)
-      redirect_to acp_lessons_path
-    else
-      render 'edit'
-    end
+    @lesson.update_attributes(lesson_params)
+    redirect_to acp_topic_path(@topic)
   end
- 
+
   def destroy
-    @lesson = Lesson.find(params[:id])
     @lesson.destroy
- 
-    redirect_to acp_lessons_path
+    redirect_to acp_topic_path(@topic)
   end
  
   private
     def lesson_params
       params.require(:lesson).permit(:title, :lesson_slug, :description, :author, :featured, :approval)
+    end
+
+    def find_lesson
+      @topic = Topic.find(params[:topic_id])
+      @lesson = Lesson.find(params[:id])
     end
 end

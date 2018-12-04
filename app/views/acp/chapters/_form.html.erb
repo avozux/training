@@ -1,0 +1,90 @@
+<div class="mt-0 w-100 pb-4">
+  <h4 class="mt-4">Chapters</h4>
+  <%= form_for [:acp, @topic, @lesson, @chapter], html: {class: 'admin-form mt-4', id: 'form', multipart: true} do |f| %>
+    <div class="form-group">
+      <%= f.label :title, 'Title', class: 'form-label font-weight-bold' %>
+      <%= f.text_field :title, placeholder: 'About 10 - 60 characters', class: 'form-control', id: 'title', :required => true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :slug, 'Slug', class: 'form-label font-weight-bold' %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><%= courses_url %>/<%= @topic.topic_slug %>/<%= @lesson.lesson_slug %>/</span>
+        </div>
+        <%= f.text_field :slug, placeholder: 'The slug will be generated automatically based on Title', class: 'form-control', id: 'slug', :required => true %>
+      </div>    
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, 'Description', class: 'form-label font-weight-bold' %>
+      <%= f.text_area :description, size: '50x3', placeholder: 'About 10 - 200 characters', class: 'form-control', :required => true %>
+    </div>
+
+    <div class="form-group _assign">
+      <%= f.label :lesson, 'Lesson', class: 'form-label font-weight-bold' %>
+      <%= f.text_field :lesson, id: 'lesson_changed', class: 'form-control hidden' %>
+      <select class="custom-select navigation-slug" id="lesson_select" multiple="multiple">
+        <% Topic.all.each do |topic| %>
+          <optgroup label="<%= topic.title %>">
+          <% Lesson.where(:topic_id => topic.id).each do |lesson| %>
+            <option <% if @chapter.lesson.to_s.split(//).map{|chr| chr.to_i}.include? lesson.id %>selected<% end %> value="<%= lesson.id %>"><%= lesson.title %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :body, 'Content', class: 'form-label font-weight-bold' %>
+      <%= f.text_area :body, class: 'wysiwyg', :required => true %>
+    </div>
+
+    <div class="form-group">
+    	<%= f.label :thumbnail, 'Thumbnail', class: 'form-label font-weight-bold' %>
+    	<%= f.file_field :thumbnail, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :video, 'Video', class: 'form-label font-weight-bold' %>
+      <%= f.file_field :video, class: 'form-control' %>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-check">
+          <%= f.check_box :featured, {class: 'form-check-input'}, "true", "false" %>
+          <label class="form-check-label">
+            Hiển Thị Trang Chủ
+          </label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-check">
+          <%= f.check_box :approval, {class: 'form-check-input'}, "true", "false" %>
+          <label class="form-check-label">
+            Công Khai
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions mt-4">
+      <%= button_tag(type: "submit", class: "btn btn-primary mr-3") do %>
+        Submit
+      <% end %>
+
+      <a href="<%= acp_courses_path %>" class="btn btn-light">Back</a>
+    </div>
+  <% end %>
+  <script type="text/javascript">
+    $('#lesson_select').change(function(){
+      $('#lesson_changed').val($(this).val());
+    })
+
+    $(".navigation-slug").select2({
+      placeholder: 'Select lesson',
+      theme: 'bootstrap4',
+      tags: true
+    });
+  </script>
+</div>
