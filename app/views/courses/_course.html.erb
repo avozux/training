@@ -1,10 +1,10 @@
 <div class="sidebar-category">
 	<% Course.all.each do |course| %>
 		<h5><%= course.title %></h5>
+		<div class="course-sidebar-list">
 		<% Topic.where(course_id: course.id).order("id ASC").each do |topic| %>
-			<div class="course-sidebar-list">
-				<p class="mb-3"><%= topic.title %></p>
-			</div>
+			<a href="<%= courses_url %>/<%= course.course_slug %>/<%= topic.topic_slug %>" class="course-sidebar-item"><%= topic.title %></a>
 		<% end %>
+		</div>
 	<% end %>
 </div>

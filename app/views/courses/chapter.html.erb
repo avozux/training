@@ -131,7 +131,7 @@
 	</div>
 </div>
 <% end %>
-<% if user_signed_in? && !Log.find_by(chapter_id: @chapter.id).present? %>
+<% if user_signed_in? && !Log.find_by(chapter_id: @chapter.id, user_id: current_user.id).present? %>
 	<script type="text/javascript">
 		function dataColect() {
 	    info = {

@@ -1,8 +1,8 @@
 <div class="sidebar-category">
 	<h5><%= @topic.title %></h5>
-	<% Lesson.where(topic_id: @topic).order("id ASC").each do |lesson| %>
-		<div class="course-sidebar-list">
-			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= lesson.lesson_slug %>"><p class="mb-3"><%= lesson.title %></p></a>
-		</div>
-	<% end %>
+	<div class="course-sidebar-list">
+		<% Lesson.where(topic_id: @topic).order("id ASC").each do |lesson| %>
+			<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= lesson.lesson_slug %>" class="course-sidebar-item"><% if current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %><span class="viewed_ic"></span><% end %><%= lesson.title %></a>
+		<% end %>
+	</div>
 </div>
