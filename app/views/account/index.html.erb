@@ -38,7 +38,7 @@
 			<div class="activities" id="sort">
 				<% @user.follow.order("created_at DESC").each do |follow| %>
 					<div class="activity">
-						<p class="mb-2">You was follow course <b><%= follow.course_title %></b> - <span id="follow_time-<%= follow.created_at.strftime("%d-%m-%Y") %>-<%= follow.course_id %>"></span></p>
+						<p class="mb-2">You was follow course <b><%= follow.chapter_title %></b> - <span id="follow_time-<%= follow.created_at.strftime("%d-%m-%Y") %>-<%= follow.chapter_id %>"></span></p>
 						<script type="text/javascript">
 							$("#follow_time-<%= follow.created_at.strftime("%d-%m-%Y") %>-<%= follow.id %>").html(moment("<%= follow.created_at.strftime("%Y-%m-%d %H:%M:%S") %>").fromNow())
 						</script>
