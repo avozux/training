@@ -21,7 +21,7 @@
             <% Topic.where(course_id: @course.id).each do |topic| %>
               <tr>
                 <th scope="row"><%= topic.id %></th>
-                <td><p class="mb-0"><%= topic.title %></p></td>
+                <td><a href="<%= acp_topic_path(topic) %>"><p class="mb-0"><%= topic.title %></p></a></td>
                 <td><p class="truncate mb-0"><%= topic.description %></p></td>
                 <td><p class="mb-0"><%= topic.lesson.count %></p></td>
                 <td>

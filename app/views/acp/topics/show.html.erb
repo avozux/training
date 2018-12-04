@@ -1,0 +1,38 @@
+<div class="acp__content">
+  <div class="container-fluid">
+    <div class="">
+      <h4 class="mt-4"><%= @topic.title %></h4>
+      <div class="w-100 pt-3 pb-3">
+        <a href="<%= new_acp_topic_lesson_path(@topic) %>" class="btn btn-primary mr-3">Tạo Bài Mới</a>
+        <a href="<%= acp_topics_path %>" class="btn btn-light">Quay Lại</a>
+      </div>
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên Bài</th>
+            <th scope="col">Giới Thiệu</th>
+            <th scope="col">Phần</th>
+            <th scope="col">Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @topic.lesson.present? %>
+            <% @topic.lesson.each do |lesson| %>
+              <tr>
+                <th scope="row"><%= lesson.id %></th>
+                <td><p class="mb-0"><%= lesson.title %></p></td>
+                <td><p class="truncate mb-0"><%= lesson.description %></p></td>
+                <td><p class="mb-0"><%= lesson.chapter.count %></p></td>
+                <td>
+                  <%= link_to 'Sửa', edit_acp_topic_lesson_path(lesson) %>
+                  <%= link_to 'Xoá', acp_topic_lesson_path(lesson), data: { confirm: 'Are you sure?' }, method: :delete, class: 'ml-2' %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %><% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
