@@ -1,0 +1,367 @@
+	<div class="breadcrumb mb-0">
+		<div class="list">
+			<a href="<%= examination_url %>" class="item">Examination</a>
+			<a nohref class="item"><%= @exam.title %></a>
+		</div>
+	</div>
+	<div class="main__content-left quizzes-detail">
+		<div class="quizzes-result result rounded mt-3"></div>
+		<div class="quizzes-guide mt-3">
+			<h6>Hướng dẫn làm bài</h6>
+			<p class="mb-3 description">
+				Chọn câu trả lời mà bạn đoán là đúng, không đúng cũng không sao, bạn chỉ không có điểm thôi 😌
+			</p>
+			<p class="mb-3 description">
+				Sau khi hoàn thành bài làm, bấm nộp bài để hoàn tất bài làm hoặc để hết giờ cũng được không sao, thật đấy 😌
+			</p>
+			<p class="mb-0 description">
+				You are in the public beta of the examination! <a href="mailto:tho.nguyen@vnetwork.vn">send feedback</a>.
+			</p>
+		</div>
+	</div>
+	<div class="main__content-center quizzes-detail">
+		<h4 class="mt-4"><%= @exam.title %></h4>
+		<p class="mb-4"><%= @exam.description %></p>
+		<div class="quizzes">
+			<% Quiz.where(:exam_id => @exam.id).shuffle.each do |quiz| %>
+				<div class="quizz-<%= Digest::MD5.hexdigest(quiz.title) %> p-3 rounded">
+					<h6 class="mb-3"><span class="mb-0">Câu <span id="number_quizz-<%= Digest::MD5.hexdigest(quiz.title) %>"></span>: </span><%= quiz.quiz_question %></h6>
+					<% if @exam.exam_type == 1 %>
+						<div class="form-check rounded answer_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <input class="hidden" type="radio" name="quizz-<%= Digest::MD5.hexdigest(quiz.title) %>" id="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_a) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <label class="form-check-label" for="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_a) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						    A. <%= quiz.quiz_question_a %>
+						  </label>
+						</div>
+						<div class="form-check rounded answer_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <input class="hidden" type="radio" name="quizz-<%= Digest::MD5.hexdigest(quiz.title) %>" id="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_b) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <label class="form-check-label" for="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_b) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						    B. <%= quiz.quiz_question_b %>
+						  </label>
+						</div>
+						<div class="form-check rounded answer_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <input class="hidden" type="radio" name="quizz-<%= Digest::MD5.hexdigest(quiz.title) %>" id="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_c) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <label class="form-check-label" for="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_c) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						    C. <%= quiz.quiz_question_c %>
+						  </label>
+						</div>
+						<div class="form-check rounded answer_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <input class="hidden" type="radio" name="quizz-<%= Digest::MD5.hexdigest(quiz.title) %>" id="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_d) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						  <label class="form-check-label" for="answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_d) %>_<%= Digest::MD5.hexdigest(quiz.title) %>">
+						    D. <%= quiz.quiz_question_d %>
+						  </label>
+						</div>
+						<script type="text/javascript">
+							$("#number_quizz-<%= Digest::MD5.hexdigest(quiz.title) %>").html($(".quizz-<%= Digest::MD5.hexdigest(quiz.title) %>").index() + 1);
+
+							$('#answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_a) %>_<%= Digest::MD5.hexdigest(quiz.title) %>').click(function() {
+							  if($(this).is(':checked')) {
+							  	$(this).attr("data-select","<%= quiz.quiz_answer_a %>")
+							  }
+							  if ($(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").children("input:checked").length != 0) {
+							  	$(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").removeClass("selected");
+								  $(this).parent().addClass("selected");
+								}
+							});
+
+							$('#answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_b) %>_<%= Digest::MD5.hexdigest(quiz.title) %>').click(function() {
+							  if($(this).is(':checked')) { 
+							  	$(this).attr("data-select","<%= quiz.quiz_answer_b %>")
+							  }
+							  if ($(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").children("input:checked").length != 0) {
+							  	$(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").removeClass("selected");
+								  $(this).parent().addClass("selected");
+								}
+							});
+
+							$('#answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_c) %>_<%= Digest::MD5.hexdigest(quiz.title) %>').click(function() {
+							  if($(this).is(':checked')) { 
+							  	$(this).attr("data-select","<%= quiz.quiz_answer_c %>")
+							  }
+							  if ($(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").children("input:checked").length != 0) {
+							  	$(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").removeClass("selected");
+								  $(this).parent().addClass("selected");
+								}
+							});
+
+							$('#answer-<%= Digest::MD5.hexdigest(quiz.quiz_question_d) %>_<%= Digest::MD5.hexdigest(quiz.title) %>').click(function() {
+							  if($(this).is(':checked')) { 
+							  	$(this).attr("data-select","<%= quiz.quiz_answer_d %>")
+							  }
+							  if ($(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").children("input:checked").length != 0) {
+							  	$(".answer_<%= Digest::MD5.hexdigest(quiz.title) %>").removeClass("selected");
+								  $(this).parent().addClass("selected");
+								}
+							});
+						</script>
+					<% else %>
+						<script type="text/javascript">
+							$("#number_quizz-<%= Digest::MD5.hexdigest(quiz.title) %>").html($(".quizz-<%= Digest::MD5.hexdigest(quiz.title) %>").index() + 1);
+						</script>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="main__content-right quizzes-detail">
+		<div class="quizzes-ranking mt-3" id="ranking">
+			<% if user_signed_in? && @log.present? %>
+				<p class="mb-3">Bạn đã làm bài thi này <span id="time-<%= @examination.created_at.strftime("%d-%m-%Y") %>-<%= @examination.id %>"></span></p>
+				<p class="mb-1 description">Thời gian làm bài: <%= @examination.time %></p>
+				<p class="mb-3 description">Điểm đạt được: <%= @examination.score %></p>
+				<p class="mb-0 description">Bài thi đã làm thì không cần phải làm lại. Kết quả làm lại sẽ không được tính vào kết quả thi lần nữa.</p>
+				<script type="text/javascript">
+					var t = moment("<%= @examination.created_at.strftime("%Y-%m-%d %H:%M:%S") %>").fromNow()
+					var translate = {
+						"a few seconds":"một vài giây",
+		        "minutes": "phút",
+		        "minute": "phút",
+		        "hours": "giờ",
+		        "hour": "giờ",
+		        "ago":"trước",
+		        "a day":"một ngày",
+		        "days":"ngày",
+		        "an":"1"
+		      };
+		      t = t.replace(/hours|hour|minutes|minute|ago|days|a day|an|a few seconds/gi, function(matched){
+		        return translate[matched];
+		      });
+
+					$("#time-<%= @examination.created_at.strftime("%d-%m-%Y") %>-<%= @examination.id %>").html(t)
+				</script>
+			<% end %>
+		</div>
+	</div>
+	<div class="submit-quizz">
+		<div class="main__content-left"></div>
+		<div class="main__content-center clearfix">
+			<div class="submit-quizz-info float-left">
+				<span class="time_ic ml-4" id="timer"><%= @exam.time %></span>
+			</div>
+			<div class="submit-quizz-action float-right">
+				<span class="pause btn btn-outline-warning btn-sm ml-3 mr-2 <% if @log.present? %>hidden<% end %>">Pause</span>
+				<span class="play btn btn-outline-primary btn-sm <% if @log.present? %>hidden<% end %>">Resume</span>
+			</div>
+			<div class="submit-quizz-retry float-right hidden">
+				<a href="<%= request.fullpath %>" class="btn btn-outline-warning btn-sm">Retry</a>
+			</div>
+		</div>
+		<div class="main__content-right">
+			<% if @log.present? %>
+			<p class="retry btn btn-warning btn-block">Làm lại</p>
+			<p class="btn btn-success btn-block submit hidden"><span id="result">Nộp Bài</span></p>
+			<% else %>
+			<p class="btn btn-success btn-block submit"><span id="result">Nộp Bài</span></p>
+			<% end %>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			function correctCount() {
+	      var counted = $(".quizzes").find('div[class^="quizz-"], div[class*=" quizz-"]').length;
+	      var correct = $(".quizzes").find('input[data-select="true"]').length;
+
+	      if (correct == 0) {
+	        rank = "Ngu"
+	        color = "noob"
+	      }
+
+	      if (correct > 0 && correct <= (counted / 3)) {
+	        rank = "Yếu"
+	        color = "week"
+	      }
+
+	      if (correct > (counted / 3) && correct <= (counted / 2)) {
+	        rank = "Khá"
+	        color = "great"
+	      }
+
+	      if (correct > (counted / 2) && correct < counted) {
+	        rank = "Giỏi"
+	        color = "good"
+	      }
+
+	      if (correct == counted) {
+	        rank = "Xuất Sắc"
+	        color = "excelent"
+	      }
+
+	      $("#result").html("Câu đúng: "+correct+"/"+counted);
+	      $(".result").addClass(color).css("border","1px solid #f1f1f1").html("<div class=\"quizzes-result-wrapper\"><p class=\"rank mb-0\">"+rank+"</p><br/><p class=\"mb-0\">Câu đúng: "+correct+"/"+counted+"</p></div>");
+
+	      <% if @exam.exam_level == 4 %>
+	      score = correct * 4
+	      <% else %>
+	      score = correct
+	     	<% end %>
+	    };
+
+	    function formatTime(seconds) {
+	      var h = Math.floor(seconds / 3600),
+	          m = Math.floor(seconds / 60) % 60,
+	          s = seconds % 60;
+	      if (h < 10) h = "0" + h;
+	      if (m < 10) m = "0" + m;
+	      if (s < 10) s = "0" + s;
+	      return h + ":" + m + ":" + s;
+	    }
+
+	    <% if @log.present? %>
+	    	isPaused = true;
+	    <% else %>
+	    	isPaused = false;
+	    <% end %>
+
+	    // if user signed in & user never passed this examination
+      <% if !@log.present? %>
+    	// record log
+			function dataColect() {
+		    info = {
+		    	'log_type' : "Exam",
+		      'user_id' : <%= current_user.id %>,
+		      'exam_url' : "<%= request.fullpath %>",
+		      'exam_id' : <%= @exam.id %>,
+		      'received' : true,
+		      'authenticity_token' : $("#csrf").val()
+		    };
+
+		    $.ajax({
+		      type      : 'POST',
+		      url       : '/logs/'+<%= current_user.id %>,
+		      data      : info,
+		      dataType  : 'json',
+		      encode    : true
+		    });
+		  }
+
+		  // record examination
+		  <% if @exam.exam_type == 1 %>
+		  function quizzesResult() {
+		  	var max = $('meta[name=octolytics-actor-exam-timer]').attr("content").split(':');
+		  	var timemax = (+max[0]) * 60 * 60 + (+max[1]) * 60 + (+max[2]);
+
+		  	var left = $("#timer").text().split(':');
+		  	var timeleft = (+left[0]) * 60 * 60 + (+left[1]) * 60 + (+left[2]);
+
+		  	var timeCounted = timemax - timeleft;
+
+		    info = {
+		    	'exam_type' : "Quizzes",
+		      'user_id' : <%= current_user.id %>,
+		      'exam_url' : "<%= request.fullpath %>",
+		      'exam_id' : <%= @exam.id %>,
+		      'received' : true,
+		      'score' : score,
+		      'time' : formatTime(timeCounted),
+		      'authenticity_token' : $("#csrf").val()
+		    };
+
+		    $.ajax({
+		      type      : 'POST',
+		      url       : '/examination/quizzes/'+<%= current_user.id %>,
+		      data      : info,
+		      dataType  : 'json',
+		      encode    : true
+		    });
+		  }
+		  <% else %>
+		  function quizzesResult() {
+		  	var max = $('meta[name=octolytics-actor-exam-timer]').attr("content").split(':');
+		  	var timemax = (+max[0]) * 60 * 60 + (+max[1]) * 60 + (+max[2]);
+
+		  	var left = $("#timer").text().split(':');
+		  	var timeleft = (+left[0]) * 60 * 60 + (+left[1]) * 60 + (+left[2]);
+
+		  	var timeCounted = timemax - timeleft;
+		  	
+		    info = {
+		    	'exam_type' : "Essay",
+		      'user_id' : <%= current_user.id %>,
+		      'exam_url' : "<%= request.fullpath %>",
+		      'exam_id' : <%= @exam.id %>,
+		      'received' : true,
+		      'time' : formatTime(timeCounted),
+		      'authenticity_token' : $("#csrf").val()
+		    };
+
+		    $.ajax({
+		      type      : 'POST',
+		      url       : '/examination/quizzes/'+<%= current_user.id %>,
+		      data      : info,
+		      dataType  : 'json',
+		      encode    : true
+		    });
+		  }
+			<% end %>
+			<% end %>
+
+	    $(".submit").click(function(){
+	      // print result
+	      $(this).attr("aria-disabled","true").addClass("disabled");
+	      $('.submit-quizz-action').addClass("hidden");
+				$('.submit-quizz-retry').removeClass("hidden");
+
+	      correctCount();
+
+	      isPaused = true;
+
+				// submit data
+				<% if !@log.present? %>
+				dataColect();
+				quizzesResult();
+
+				setTimeout(function() {
+					window.location.href = '<%= request.fullpath %>';
+				}, 1000);
+				<% end %>
+	    })
+
+	    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+	    var t = $('meta[name=octolytics-actor-exam-timer]').attr("content").split(':');
+	    var time = (+t[0]) * 60 * 60 + (+t[1]) * 60 + (+t[2]);
+	    var counter = setInterval(function() {
+	      if(!isPaused) {
+	        time--;
+	        if (time < 0) {
+	          correctCount();
+	          $(".submit").attr("aria-disabled","true").addClass("disabled");
+
+	          // submit data
+						dataColect();
+						quizzesResult();
+
+						$('.submit-quizz-action').addClass("hidden");
+						$('.submit-quizz-retry').removeClass("hidden");
+
+						setTimeout(function() {
+							window.location.href = '<%= request.fullpath %>';
+						}, 1000);
+
+	          return clearInterval(counter);
+	        }
+	        document.getElementById('timer').innerHTML = formatTime(time);
+	      }
+	    }, 1000);
+
+	    // pause & resume time countdown
+	    $('.pause').on('click', function(e) {
+	      e.preventDefault();
+	      isPaused = true;
+	    });
+	    $('.play').on('click', function(e) {
+	      e.preventDefault();
+	      isPaused = false;
+	    });
+
+	    // retry passed examination
+	    <% if @log.present? %>
+	    $('.retry').on('click', function(e) {
+	      e.preventDefault();
+	      isPaused = false;
+
+	      $(this).remove();
+	      $(".submit, .play, .pause").removeClass("hidden");
+	    });
+	    <% end %>
+	  });
+	</script>

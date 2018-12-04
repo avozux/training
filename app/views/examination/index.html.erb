@@ -1,0 +1,63 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="<%= examination_url %>" class="item">Examination</a>
+	</div>
+</div>
+<div class="main__content-left">
+	
+</div>
+<div class="main__content-center quizzes">
+	<h4 class="mt-4">Tất cả bài thi</h4>
+	<div class="mt-3">
+		<div class="content-list clearfix">
+			<% Exam.all.order("created_at ASC").each do |exam| %>
+				<a href="<%= examination_url %>/<%= exam.slug %>">
+					<div class="content-list-item rounded clearfix">
+						<div class="content-list-item-body p-3">
+							<div class="content-list-item-heading clearfix">
+								<h5 class="float-left mb-0"><%= exam.title %></h5><% if Examination.where(:exam_id => exam.id, :user_id => current_user.id).present? %><span class="passed_ic ml-3">Đã làm</span><% end %>
+							</div>
+							<p class="mt-3 mb-5 truncate"><%= exam.description %></p>
+							<p class="mb-0 quiz-information">
+								<span class="quiz_ic"><%= exam.quizzes.count %> câu</span> 
+								<span class="time_ic"><span id="timer_<%= Digest::MD5.hexdigest(exam.title) %>"></span> phút</span>
+								<span class="score_ic"><span id="score_<%= Digest::MD5.hexdigest(exam.title) %>"></span> điểm</span>
+								<span class="level_ic" id="level_<%= Digest::MD5.hexdigest(exam.title) %>"> Độ khó: 
+									<% if exam.exam_level == 1 %>
+										<%= image_tag("star.svg", height: '16') %>
+									<% elsif exam.exam_level == 2 %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+									<% elsif exam.exam_level == 3 %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+									<% elsif exam.exam_level == 4 %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+										<%= image_tag("star.svg", height: '16') %>
+									<% end %>
+								</span>
+							</p>
+							<script type="text/javascript">
+								var t = '<%= exam.time %>'.split(':');
+								$("#timer_<%= Digest::MD5.hexdigest(exam.title) %>").html(t[1]);
+
+								var score = <%= exam.quizzes.count %> * <% if exam.exam_level == 4 %>4<% else %>1<% end %>;
+								$("#score_<%= Digest::MD5.hexdigest(exam.title) %>").html(score);
+							</script>
+						</div>
+					</div>
+				</a>
+			<% end %>
+		</div>
+		<script type="text/javascript">
+			var quiz = Math.max.apply(null, $(".content-list .content-list-item").map(function () {
+		    return $(this).height();
+		  }).get());
+
+			$(".content-list .content-list-item").css("height",(quiz));
+		</script>
+	</div>
+</div>

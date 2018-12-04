@@ -24,6 +24,9 @@ Rails.application.routes.draw do
 
   # Examination Routing
   get '/examination', to: "examination#index"
+  get '/examination/:slug', to: "examination#detail"
+
+  post '/examination/quizzes/:id', to: "examination#quizzes"
 
   # Search Courses Routing
   get 'search', to: 'search#index'

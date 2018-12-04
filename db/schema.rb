@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_032906) do
+ActiveRecord::Schema.define(version: 2018_12_04_061736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,20 @@ ActiveRecord::Schema.define(version: 2018_12_04_032906) do
     t.index ["user_id"], name: "index_examinations_on_user_id"
   end
 
+  create_table "exams", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.string "description"
+    t.string "time"
+    t.integer "exam_level"
+    t.string "exam_topic"
+    t.integer "exam_type"
+    t.boolean "featured", default: false
+    t.boolean "approval", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "follows", force: :cascade do |t|
     t.string "chapter_title"
     t.integer "chapter_id"
@@ -123,6 +137,30 @@ ActiveRecord::Schema.define(version: 2018_12_04_032906) do
     t.datetime "updated_at", null: false
     t.index ["chapter_id", "exam_id", "user_id"], name: "index_logs_on_chapter_id_and_exam_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "quiz_level"
+    t.integer "quiz_type"
+    t.string "quiz_topic"
+    t.string "quiz_question"
+    t.string "quiz_answer"
+    t.string "quiz_question_a"
+    t.boolean "quiz_answer_a"
+    t.string "quiz_question_b"
+    t.boolean "quiz_answer_b"
+    t.string "quiz_question_c"
+    t.boolean "quiz_answer_c"
+    t.string "quiz_question_d"
+    t.boolean "quiz_answer_d"
+    t.boolean "featured", default: false
+    t.boolean "approval", default: true
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_quizzes_on_exam_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -181,5 +219,6 @@ ActiveRecord::Schema.define(version: 2018_12_04_032906) do
   add_foreign_key "follows", "users"
   add_foreign_key "lessons", "topics"
   add_foreign_key "logs", "users"
+  add_foreign_key "quizzes", "exams"
   add_foreign_key "replies", "comments"
 end
