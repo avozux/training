@@ -11,8 +11,13 @@
 		<div class="sidebar-category">
 			<h5><%= @topic.title %></h5>
 			<div class="course-sidebar-list">
-				<% Lesson.where(topic_id: @topic).order("id ASC").each do |lesson| %>
-					<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= lesson.lesson_slug %>" class="course-sidebar-item"><% if user_signed_in? && current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %><span class="viewed_ic"></span><% end %><%= lesson.title %></a>
+				<% @topic.lesson.order("id ASC").each do |lesson| %>
+					<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= lesson.lesson_slug %>" class="course-sidebar-item">
+						<% if user_signed_in? && current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %>
+							<span class="viewed_ic"></span>
+						<% end %>
+						<%= lesson.title %>
+					</a>
 				<% end %>
 			</div>
 		</div>
@@ -29,13 +34,13 @@
 				<div class="content-list-item course rounded">
 					<div class="content-list-item-body p-3">
 						<h5><%= lesson.title %></h5>
-						<% if user_signed_in? %>
-							<p class="mb-0"><% if current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %>
+						<p class="mb-0">
+							<% if user_signed_in? && current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %>
 								<span class="passed_ic">Hoàn Thành</span>
 							<% else %>
 								Đã học: <span><%= current_user.log.where(lesson_id: lesson.id).size %>/<%= lesson.chapter.count %></span>
-							<% end %></p>
-						<% end %>
+							<% end %>
+						</p>
 						<p class="mt-3 truncate"><%= lesson.description %></p>
 					</div>
 				</div>
