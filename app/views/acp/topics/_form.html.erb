@@ -1,0 +1,42 @@
+<div class="mt-0 w-100 pb-4">
+  <h4 class="mt-4"><% if action_name == "edit" %>Sửa<% elsif action_name == "new" %>Tạo<% end %> Chủ Đề</h4>
+  <%= form_for [:acp, @topic], html: {class: 'admin-form mt-4'} do |f| %>
+    <div class="form-group">
+      <%= f.label :title, 'Tên Chủ Đề', class: 'form-label font-weight-bold' %>
+      <%= f.text_field :title, placeholder: 'Tên chủ đề nên ngắn gọn trong khoảng 60 - 100 ký tự', class: 'form-control', id: 'title', :required => true %>
+      <%= f.hidden_field :topic_slug, id: 'slug' %>
+      <small class="form-text text-muted">Lưu ý: đường dẫn chủ đề sẽ thay đổi theo tên chủ đề.</small>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, 'Giới thiệu', class: 'form-label font-weight-bold' %>
+      <%= f.text_area :description, size: '50x3', placeholder: 'Nhập đoạn giới thiệu ngắn từ 60 - 500 ký tự', class: 'form-control', :required => true %>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-check">
+          <%= f.check_box :featured, {class: 'form-check-input'}, "true", "false" %>
+          <label class="form-check-label">
+            Hiển thị trang chủ
+          </label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-check">
+          <%= f.check_box :approval, {class: 'form-check-input'}, "true", "false" %>
+          <label class="form-check-label">
+            Công khai
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions mt-4">
+      <%= button_tag(type: "submit", class: "btn btn-primary mr-3") do %>
+        Lưu
+      <% end %>
+      <a href="<%= url_for(:back) %>" class="btn btn-light">Quay Lại</a>
+    </div>
+  <% end %>
+</div>
