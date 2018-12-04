@@ -38,7 +38,9 @@ Rails.application.routes.draw do
     resources :courses
 
     resources :topics do
-      resources :lessons
+      resources :lessons do
+        resources :chapters
+      end
     end
   end
 

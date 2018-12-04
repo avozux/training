@@ -21,12 +21,12 @@
             <% @topic.lesson.each do |lesson| %>
               <tr>
                 <th scope="row"><%= lesson.id %></th>
-                <td><p class="mb-0"><%= lesson.title %></p></td>
+                <td><a href="<%= acp_topic_lesson_path(@topic, lesson) %>"><p class="mb-0"><%= lesson.title %></p></a></td>
                 <td><p class="truncate mb-0"><%= lesson.description %></p></td>
                 <td><p class="mb-0"><%= lesson.chapter.count %></p></td>
                 <td>
                   <%= link_to 'Tạo Bài Mới', new_acp_topic_lesson_path(lesson) %>
-                  <%= link_to 'Sửa', edit_acp_topic_lesson_path(lesson) %>
+                  <%= link_to 'Sửa', edit_acp_topic_lesson_path(lesson), class: 'ml-2' %>
                   <%= link_to 'Xoá', acp_topic_lesson_path(lesson), data: { confirm: 'Are you sure?' }, method: :delete, class: 'ml-2' %>
                 </td>
               </tr>
