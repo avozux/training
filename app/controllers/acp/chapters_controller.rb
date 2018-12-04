@@ -32,7 +32,7 @@ class Acp::ChaptersController < AcpController
  
   private
     def chapter_params
-      params.require(:chapter).permit(:title, :slug, :description, :body, :featured, :approval)
+      params.require(:chapter).permit(:title, :slug, :description, :body, :featured, :approval, :thumbnail, :video)
     end
 
     def find_chapter
