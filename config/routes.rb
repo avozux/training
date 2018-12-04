@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   namespace :acp do
     get '/', to: "main#index"
 
+    resources :courses
+
     resources :topics do
     end
   end
