@@ -8,7 +8,14 @@
 <div class="main__content-left">
 	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
 	<div class="course-sidebar mt-4">
-		<%= render 'lesson' %>
+		<div class="sidebar-category">
+			<h5><%= @topic.title %></h5>
+			<div class="course-sidebar-list">
+				<% Lesson.where(topic_id: @topic).order("id ASC").each do |lesson| %>
+					<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= params[:topic_slug] %>/<%= lesson.lesson_slug %>" class="course-sidebar-item"><% if user_signed_in? && current_user.log.where(lesson_id: lesson.id).size >= lesson.chapter.count %><span class="viewed_ic"></span><% end %><%= lesson.title %></a>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="main__content-center courses">

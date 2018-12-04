@@ -7,7 +7,14 @@
 <div class="main__content-left">
 	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
 	<div class="course-sidebar mt-4">
-		<%= render 'topic' %>
+		<div class="sidebar-category">
+			<h5><%= @course.title %></h5>
+			<div class="course-sidebar-list">
+				<% Topic.where(course_id: @course).each do |topic| %>
+					<a href="<%= courses_url %>/<%= params[:course_slug] %>/<%= topic.topic_slug %>" class="course-sidebar-item"><%= topic.title %></a>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="main__content-center courses">
