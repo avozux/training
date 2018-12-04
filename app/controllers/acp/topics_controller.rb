@@ -1,10 +1,11 @@
 class Acp::TopicsController < AcpController
+  before_action :find_topic, only: [:show, :edit, :update, :destroy]
+  
 	def index
     @topics = Topic.all
   end
  
   def show
-    @topic = Topic.find(params[:id])
   end
  
   def new
@@ -12,7 +13,6 @@ class Acp::TopicsController < AcpController
   end
  
   def edit
-    @topic = Topic.find(params[:id])
   end
  
   def create
@@ -26,8 +26,6 @@ class Acp::TopicsController < AcpController
   end
  
   def update
-    @topic = Topic.find(params[:id])
- 
     if @topic.update(topic_params)
       redirect_to acp_topics_path
     else
@@ -36,14 +34,16 @@ class Acp::TopicsController < AcpController
   end
  
   def destroy
-    @topic = Topic.find(params[:id])
     @topic.destroy
- 
     redirect_to acp_topics_path
   end
  
   private
     def topic_params
       params.require(:topic).permit(:title, :topic_slug, :description, :featured, :approval)
+    end
+
+    def find_topic
+      @topic = Topic.find(params[:id])
     end
 end
