@@ -36,7 +36,7 @@
 						<h5><%= lesson.title %></h5>
 						<p class="mb-0">
 							<% if user_signed_in? && !current_user.log.nil? %>
-								<% if current_user.log.where(lesson_id: lesson.id).size = lesson.chapter.count %>
+								<% if current_user.log.where(lesson_id: lesson.id).size == lesson.chapter.count %>
 									<span class="passed_ic">Hoàn Thành</span>
 								<% else %>
 									Đã học: <span><%= current_user.log.where(lesson_id: lesson.id).size %>/<%= lesson.chapter.count %></span>
