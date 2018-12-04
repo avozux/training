@@ -14,7 +14,7 @@
 </div>
 <div class="main__content-center detail">
 	<div class="course-intro">
-		<h1 class="title mb-3">
+		<h3 class="title mb-3">
 			<%= @chapter.title %>
 			<% if user_signed_in? %>
 				<% if @follow.nil? %>
@@ -23,7 +23,7 @@
 					<a class="follow following" rel="nofollow" data-method="delete" href="/follows/<%= @follow.id %>/"></a>
 				<% end %>
 			<% end %>
-		</h1>
+		</h3>
 		<p class="description mb-4"><%= @chapter.description %></p>
 	</div>
 	<% if @chapter.video.exists? %>

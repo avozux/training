@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   # Front-End Routing
   root "default#index"
 
-  # Authenticator
-  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords" }
-  devise_for :admins, controllers: { sessions: "admins/sessions", registrations: "admins/registrations", passwords: "admins/passwords" }
-
   # Courses Routing
   get '/courses', to: "courses#index"
   get '/courses/:course_slug', to: "courses#course"
@@ -39,4 +35,16 @@ Rails.application.routes.draw do
     resources :topics do
     end
   end
+
+  # Authenticator
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords" }
+  devise_for :admins, controllers: { sessions: "admins/sessions", registrations: "admins/registrations", passwords: "admins/passwords" }
+
+  # User Account Routing
+  get '/account/:username', to: "account#edit"
+  patch '/account/:username', to: "account#update"
+
+  get '/:username', to: "account#index"
+  get '/settings/profile', to: "account#user"
+  get '/settings/password', to: "account#password"
 end

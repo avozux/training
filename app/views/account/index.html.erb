@@ -1,0 +1,79 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a nohref class="item">Profile</a>
+	</div>
+</div>
+<div class="main__content-left">
+	<div class="profile mt-4">
+		<div class="profile-people-avatar">
+			<img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@user.email) %>?s=200"/>
+			<h5 class="mane mt-2 mb-0"><%= @user.name %></h5>
+			<p class="username"><%= @user.username %></p>
+			<p class="level">Level: <%= @user.level %>
+			<div class="mb-0"><%= link_to('Update Profile', settings_profile_path, class: "btn btn-block btn-primary") if current_user.id == @user.id %></div>
+		</div>
+		<div class="profile-people-info">
+			<% if @user.team.present? %><p class="group mb-2"><%= team(@user.team) %></p><% end %>
+			<p class="email <% if @user.phone.present? %>mb-2<% else %>mb-0<% end %>"><a href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
+			<% if @user.phone.present? %><p class="phone mb-0"><%= @user.phone %></p><% end %>
+		</div>
+		<div class="profile-people-dept">
+			<h6>Your Team</h6>
+			<p class="mb-0">You don’t belong to any teams yet!</p>
+		</div>
+		<div class="profile-notice">
+			<p class="mb-0">You are in the public beta of the dashboard! <a href="mailto:tho.nguyen@vnetwork.vn">send feedback</a>.</p>
+		</div>
+	</div>
+</div>
+<div class="main__content-center profile">
+	<div class="profile-people-achievement mt-4 p-3 rounded">
+		<h6 class="mb-3"><span class="achievement mb-0">Thành Tích</span></h6>
+		<p class="mb-2">Bạn có <% if @point.present?%><%= number_to_human(@point) %><% else %>0<% end %>/<% if @user.level == 1 %>100<% elsif @user.level == 2 %>1000<% end %> điểm kinh nghiệm để lên cấp. Hãy tích cực tham gia các hoạt động mỗi ngày để có thêm càng nhiều điểm kinh ngiệm ngay hôm nay. 🤗</p>
+		<p class="mb-0"><b>Gợi ý:</b> Đọc các bài học mới, làm bài luyện tập để có thêm điểm kinh nghiệm. Đặc biệt tham gia các bài thi mới sẽ có thêm rất nhiều điểm kinh nghiệm đấy nhé.</p>
+	</div>
+	<div class="profile-people-timeline mt-4 p-3 rounded">
+		<h6 class="mb-3"><span class="timeline mb-0">Các hoạt động gần đây</span></h6>
+		<% if @user.follow.present? || @user.examination.present? %>
+			<div class="activities" id="sort">
+				<% @user.follow.order("created_at DESC").each do |follow| %>
+					<div class="activity">
+						<p class="mb-2">You was follow course <b><%= follow.course_title %></b> - <span id="follow_time-<%= follow.created_at.strftime("%d-%m-%Y") %>-<%= follow.course_id %>"></span></p>
+						<script type="text/javascript">
+							$("#follow_time-<%= follow.created_at.strftime("%d-%m-%Y") %>-<%= follow.id %>").html(moment("<%= follow.created_at.strftime("%Y-%m-%d %H:%M:%S") %>").fromNow())
+						</script>
+					</div>
+				<% end %>
+				<% @user.examination.order("created_at DESC").each do |examination| %>
+					<div class="activity">
+						<p class="mb-2">You was passed exams <b><%= Exam.find(examination.exam_id).title %></b> - <span id="examination_time-<%= examination.created_at.strftime("%d-%m-%Y") %>-<%= examination.id %>"></span></p>
+						<script type="text/javascript">
+							$("#examination_time-<%= examination.created_at.strftime("%d-%m-%Y") %>-<%= examination.id %>").html(moment("<%= examination.created_at.strftime("%Y-%m-%d %H:%M:%S") %>").fromNow())
+						</script>
+					</div>
+				<% end %>
+			</div>
+		<% else %>
+			<p class="mb-0">Bạn chưa có hoạt động nào gần đây!</p>
+		<% end %>
+	</div>
+	<div class="profile-people-timeline mt-4 p-3 rounded">
+		<h6 class="mb-3"><span class="mb-0">Ngày bắt đầu tham gia đào tạo.</span></h6>
+		<%= @user.created_at.strftime("%B %d, %Y") %>
+	</div>
+</div>
+<div class="main__content-right profile">
+	<div class="profile-people-lastview mt-4">
+		<h6 class="mb-2">Last Viewed Courses</h6>
+		<% if @user.log.present? %>
+			<p class="mb-3">Some recently viewed courses.</p>
+			<% @user.log.last(10).each do |log| %>
+				<% Chapter.where(id: log.chapter_id).each do |chapter| %>
+					<a href="<%= log.chapter_url %>"><p class="mb-0"><%= chapter.title %></p></a>
+				<% end %>
+			<% end %>
+		<% else %>
+			<p class="mb-3">You don’t view any courses.</p>
+		<% end %>
+	</div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_093112) do
+ActiveRecord::Schema.define(version: 2018_12_04_032906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,20 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
     t.string "description"
     t.boolean "featured", default: false
     t.boolean "approval", default: true
+  end
+
+  create_table "examinations", force: :cascade do |t|
+    t.string "exam_type"
+    t.integer "exam_id"
+    t.string "exam_url"
+    t.decimal "score", precision: 10
+    t.string "time"
+    t.boolean "received", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id", "user_id"], name: "index_examinations_on_exam_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_examinations_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -163,6 +177,7 @@ ActiveRecord::Schema.define(version: 2018_12_03_093112) do
 
   add_foreign_key "chapters", "lessons"
   add_foreign_key "comments", "chapters"
+  add_foreign_key "examinations", "users"
   add_foreign_key "follows", "users"
   add_foreign_key "lessons", "topics"
   add_foreign_key "logs", "users"

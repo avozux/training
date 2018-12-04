@@ -66,7 +66,7 @@ span {
 			color: $black;
 			display: inline-block;
 			float: left;
-			margin: calc((50px - 20px) / 2) 1rem;
+			margin: calc((50px - 24px) / 2) 1rem;
 			&:hover {
 				color: $black-6nd;
 				text-decoration: none;
@@ -91,6 +91,26 @@ span {
 				background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNy41IDE3LjYiIHdpZHRoPSIxNy41IiBoZWlnaHQ9IjE3LjYiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNiMWIxYjE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMTUuNSwxMTYxLjRsNSw1LTEuNSwxLjUtNS01di0uOGwtLjMtLjNhNi4zNjIsNi4zNjIsMCwwLDEtNC4yLDEuNSw2LjAzOSw2LjAzOSwwLDAsMS00LjYtMS45LDYuNiw2LjYsMCwwLDEtMS45LTQuNiw2LjAzOSw2LjAzOSwwLDAsMSwxLjktNC42LDYuNiw2LjYsMCwwLDEsNC42LTEuOSw2LjE5LDYuMTksMCwwLDEsNC42LDEuOSw2LjYsNi42LDAsMCwxLDEuOSw0LjYsNi4zNjEsNi4zNjEsMCwwLDEtMS41LDQuMmwuMy4zaC43Wm0tOS4yLTEuM2E0LjIyNCw0LjIyNCwwLDAsMCwzLjIsMS4zLDQuMzc3LDQuMzc3LDAsMCwwLDMuMi0xLjMsNC41ODgsNC41ODgsMCwwLDAsMC02LjQsNC4yMjQsNC4yMjQsMCwwLDAtMy4yLTEuMyw0LjM3Nyw0LjM3NywwLDAsMC0zLjIsMS4zLDQuMjI0LDQuMjI0LDAsMCwwLTEuMywzLjJBNC42MjYsNC42MjYsMCwwLDAsNi4zLDExNjAuMVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zIC0xMTUwLjMpIi8+PC9zdmc+);
 				background-repeat: no-repeat;
 				background-position: center;
+			}
+			input.form-control {
+				font-size: 0.875rem;
+    		line-height: 0.875rem;
+				&::-webkit-input-placeholder {
+					font-size: 0.875rem;
+				  font-weight: 300;
+				}
+				&::-moz-placeholder {
+					font-size: 0.875rem;
+				  font-weight: 300;
+				}
+				&:-ms-input-placeholder {
+					font-size: 0.875rem;
+				  font-weight: 300;
+				}
+				&:-moz-placeholder {
+					font-size: 0.875rem;
+				  font-weight: 300;
+				}
 			}
 		}
 	}
@@ -228,6 +248,9 @@ span {
 				}
 				&:not(:last-child) {
 					margin-bottom: 0.5rem;
+				}
+				&:hover {
+					color: $primary;
 				}
 			}
 
@@ -501,17 +524,17 @@ span {
 				}
 			}
 		}
-		h1.title {
-			font-size: 2rem;
-		}
-		p.description {
-			font-size: 1rem;
-			line-height: 1.5;
-			color: $black;
-		}
 		.course-intro {
 			width: 75%;
 			padding-top: 2rem;
+			h3.title {
+				font-weight: 500;
+			}
+			p.description {
+				font-size: 1rem;
+				line-height: 1.5;
+				color: $black;
+			}
 		}
 		&.detail {
 			width: calc((100% * 3/5) - 50px);

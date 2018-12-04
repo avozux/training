@@ -1,0 +1,39 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="/<%= current_user.username %>" class="item">Profile</a>
+		<a nohref class="item">Update Profile</a>
+	</div>
+</div>
+<div class="main__content-left">
+	<div class="profile">
+		<div class="profile-account-sidebar mt-4 rounded">
+			<div class="profile-account-sidebar-heading p-3">
+				<p class="mb-0">Personal settings</p>
+			</div>
+			<div class="profile-account-sidebar-list">
+				<a href="<%= settings_profile_path %>" class="profile-account-sidebar-item active p-2 pl-3">Account</a>
+				<a href="" class="profile-account-sidebar-item p-2 pl-3">Avatar</a>
+				<a href="<%= settings_password_path %>" class="profile-account-sidebar-item p-2 pl-3">Password</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="main__content-center profile">
+	<h5 class="mt-4 mb-2">Public Profile</h5>
+	<div id="update-account"></div>
+</div>
+<div class="main__content-right profile">
+	<div class="profile-people-lastview mt-4">
+		<h6 class="mb-2">Last Viewed Courses</h6>
+		<% if current_user.log.present? %>
+			<p class="mb-3">Some recently viewed courses.</p>
+			<% current_user.log.last(10).each do |log| %>
+				<% Chapter.where(id: log.chapter_id).each do |chapter| %>
+					<a href="<%= log.chapter_url %>"><p class="mb-0"><%= chapter.title %></p></a>
+				<% end %>
+			<% end %>
+		<% else %>
+			<p class="mb-3">You don’t view any courses.</p>
+		<% end %>
+	</div>
+</div>
