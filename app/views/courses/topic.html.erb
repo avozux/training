@@ -35,7 +35,7 @@
 					<div class="content-list-item-body p-3">
 						<h5><%= lesson.title %></h5>
 						<p class="mb-0">
-							<% if user_signed_in? %>
+							<% if user_signed_in? && current_user.log.present? %>
 								<% if current_user.log.where(lesson_id: lesson.id).size = lesson.chapter.count %>
 									<span class="passed_ic">Hoàn Thành</span>
 								<% else %>
