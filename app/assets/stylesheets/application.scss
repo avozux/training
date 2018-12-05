@@ -359,10 +359,7 @@ span {
 				}
 			}
 		}
-		&.quizzes-detail {
-			width: calc(100% * 1/5);
-			position: fixed;
-			top: calc(50px + 43px);
+		&.examination {
 			.quizzes-result {
 				.quizzes-result-wrapper {
 					padding: 1rem;
@@ -603,7 +600,8 @@ span {
 				}
 			}
 		}
-		&.quizzes {
+		&.examination {
+			width: calc((100% * 3/5) - 50px);
 			&-detail {
 				width: calc((100% * 3/5) - 50px);
 				position: relative;
@@ -681,11 +679,7 @@ span {
 				}
 			}
 		}
-		&.quizzes-detail {
-			width: calc((100% * 1/5) + 50px);
-			position: fixed;
-			top: calc(50px + 43px);
-			right: 0;
+		&.examination {
 			background-color: $light;
 			.quizzes-ranking {
 				p.description {
@@ -696,17 +690,18 @@ span {
 		}
 	}
 	&.fixed {
+		position: relative;
 		.main__content-left {
 			position: fixed;
-			top: 0;
+			left: 0;
 		}
 		.main__content-center {
 			position: relative;
 			left: calc(100% * 1/5);
 		}
 		.main__content-right {
-			position: relative;
-    	float: right;
+			position: fixed;
+			right: 0;
 		}
 	}
 }

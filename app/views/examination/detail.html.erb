@@ -4,7 +4,7 @@
 			<a nohref class="item"><%= @exam.title %></a>
 		</div>
 	</div>
-	<div class="main__content-left quizzes-detail">
+	<div class="main__content-left examination">
 		<div class="quizzes-result result rounded mt-3"></div>
 		<div class="quizzes-guide mt-3">
 			<h6>Hướng dẫn làm bài</h6>
@@ -19,7 +19,7 @@
 			</p>
 		</div>
 	</div>
-	<div class="main__content-center quizzes-detail">
+	<div class="main__content-center examination">
 		<h4 class="mt-4"><%= @exam.title %></h4>
 		<p class="mb-4"><%= @exam.description %></p>
 		<div class="quizzes">
@@ -103,7 +103,7 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="main__content-right quizzes-detail">
+	<div class="main__content-right examination">
 		<div class="quizzes-ranking mt-3" id="ranking">
 			<% if user_signed_in? && @log.present? %>
 				<p class="mb-3">Bạn đã làm bài thi này <span id="time-<%= @examination.created_at.strftime("%d-%m-%Y") %>-<%= @examination.id %>"></span></p>
