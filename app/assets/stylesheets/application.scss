@@ -685,15 +685,15 @@ span {
 	}
 	&.fixed {
 		position: relative;
-		.main__content-left {
+		.main__content-left.examination {
 			position: fixed;
 			left: 0;
 		}
-		.main__content-center {
+		.main__content-center.examination {
 			position: relative;
 			left: calc(100% * 1/5);
 		}
-		.main__content-right {
+		.main__content-right.examination {
 			position: fixed;
 			right: 0;
 		}
