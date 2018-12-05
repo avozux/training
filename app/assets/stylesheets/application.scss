@@ -602,14 +602,8 @@ span {
 		}
 		&.examination {
 			width: calc((100% * 3/5) - 50px);
-			&-detail {
-				width: calc((100% * 3/5) - 50px);
-				position: relative;
-				left: calc(100% * 1/5);
-				.quizzes {
-					margin-bottom: calc(60px + 1rem);
-				}
-			}
+		}
+		&.examinations {
 			.content-list {
 				.content-list-item {
 					width: calc((100% * 1/2) - 20px);
