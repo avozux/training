@@ -1,0 +1,32 @@
+<div class="breadcrumb mb-0">
+	<div class="list">
+		<a href="<%= search_url %>" class="item">Search</a>
+	</div>
+</div>
+<div class="main__content-left">
+	<h6 class="course-sidebar-heading"><span class="navigation_ic">Danh mục</span></h6>
+	<div class="course-sidebar mt-4">
+		<%= render 'default/sidebar' %>
+	</div>
+</div>
+<div class="main__content-center">
+	<h4 class="mt-5">Kết quả tìm kiếm</h4>
+	<% if @course.present? %>
+	<div class="mt-3">
+		<div class="content-list clearfix">
+			<% @course.each do |course| %>
+				<a href="<%= courses_url %>/<%= Category.find(Topic.find(course.topic).category_id).category_slug %>/<%= Topic.find(course.topic).topic_slug %>/<%= course.slug %>">
+					<div class="content-list-item topic rounded">
+						<div class="content-list-item-body p-3">
+							<h5 class="title"><%= course.try(:highlight).try(:title) ? course.highlight.title[0].html_safe : course.title %></h5>
+							<p class="mt-3"><%= course.try(:highlight).try(:description) ? course.highlight.description[0].html_safe : course.description %></p>
+						</div>
+					</div>
+				</a>
+			<% end %>
+		</div>
+	</div>
+	<% else %>
+	<p class="mt-3">Không có kết quả nào phù hợp với từ khoá của bạn.</p>
+	<% end %>
+</div>
