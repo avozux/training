@@ -1,9 +1,9 @@
 class SearchController < ApplicationController
   def index
     if params[:q].nil?
-      @course = []
+      @chapter = []
     else
-      @course = Course.search params[:q]
+      @chapter = Chapter.search params[:q]
     end
   end
 end
