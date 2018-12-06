@@ -20,7 +20,7 @@
             <% @lesson.chapter.order("id ASC").each do |chapter| %>
               <tr>
                 <th scope="row"><%= chapter.id %></th>
-                <td><a href="<%= courses_url %>/<%= Course.find(@topic.id).course_slug %>/<%= @topic.topic_slug %>/<%= @lesson.lesson_slug %>/<%= chapter.slug %>" target="_blank"><p class="mb-0"><%= chapter.title %></p></a></td>
+                <td><a href="<%= courses_url %>/<%= Course.find(chapter.id).course_slug %>/<%= @topic.topic_slug %>/<%= @lesson.lesson_slug %>/<%= chapter.slug %>" target="_blank"><p class="mb-0"><%= chapter.title %></p></a></td>
                 <td><p class="truncate mb-0"><%= chapter.description %></p></td>
                 <td>
                   <%= link_to 'Sửa', edit_acp_topic_lesson_chapter_path(@topic, @lesson, chapter) %>

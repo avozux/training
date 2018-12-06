@@ -40,7 +40,7 @@ class Acp::TopicsController < AcpController
  
   private
     def topic_params
-      params.require(:topic).permit(:title, :topic_slug, :description, :featured, :approval)
+      params.require(:topic).permit(:title, :topic_slug, :description, :course_id, :featured, :approval)
     end
 
     def find_topic
